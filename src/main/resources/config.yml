@@ -1,0 +1,70 @@
+# “disabled-from-level”表示从这个等级开始禁止。
+# 例如 sharpness=5 会把锋利 V（以及更高等级）降为锋利 IV。
+features:
+  # 也可以由 OP 使用 /infvillager 开关；状态会自动保存到这里。
+  infinite-villager-trades: false
+
+restrictions:
+  scan-period-ticks: 40
+
+  enchantments:
+    minecraft:sharpness:
+      disabled-from-level: 5
+    minecraft:vanishing_curse:
+      disabled: true
+      # true 会删除带有该附魔的整组物品；false 只移除附魔。
+      remove-item: true
+
+  # 药水等级按游戏内显示填写（1 表示 I，2 表示 II）。
+  potion-effects:
+    minecraft:strength:
+      disabled-from-level: 2
+
+  items:
+    disable-ender-pearl-teleport: false
+    disable-chorus-fruit-teleport: false
+
+  # 1.0 是原版伤害；0.5 是一半伤害；0 完全无伤害。
+  explosion-damage:
+    tnt-minecart-multiplier: 1.0
+    end-crystal-multiplier: 1.0
+    tnt-multiplier: 1.0
+
+anti-cheat:
+  # true：只写日志并通知在线 OP；false：确认作弊后封禁。
+  silent: true
+
+  reach:
+    survival-max: 3.15
+    creative-max: 5.0
+
+  combat:
+    max-angle-degrees: 55.0
+    minimum-attack-interval-ms: 70
+
+  flight:
+    hover-ticks: 22
+    max-unexplained-rise: 0.62
+    max-air-rise: 2.15
+    elytra-flat-ticks: 16
+
+  # VL 会随时间下降；只有多项高置信证据累计过线才确认。
+  thresholds:
+    reach: 8.0
+    killaura: 8.0
+    crystalaura: 8.0
+    flight: 8.0
+    elytra-flight: 8.0
+
+  ban:
+    # 支持 m/h/d/w，例如 30m、12h、7d、2w；permanent 为永久。
+    duration: 7d
+    message: |-
+      你已被 SMP Booster 反作弊封禁。
+      检测类型：%check%
+      封禁时长：%duration%
+
+messages:
+  # zh、en、ja、de 或 es；也可以由 OP 使用 /language 切换。
+  language: zh
+  prefix: "§c[SMP Booster] §f"

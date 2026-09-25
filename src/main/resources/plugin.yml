@@ -1,0 +1,35 @@
+name: smp-booster
+version: '${version}'
+
+main: com.smpBooster.SmpBooster
+api-version: '26.3'
+load: POSTWORLD
+description: 可配置的生存服限制与轻量反作弊
+author: SMP Booster
+
+commands:
+  acwhitelist:
+    description: 管理反作弊白名单
+    usage: /acwhitelist <add|remove|list> [玩家]
+    permission: smpbooster.admin
+  silentac:
+    description: 切换静默反作弊模式
+    usage: /silentac [on|off|toggle|status]
+    permission: smpbooster.admin
+  infvillager:
+    description: 开关村民无限补货
+    usage: /infvillager [on|off|toggle|status]
+    permission: smpbooster.admin
+  paperfix:
+    description: 开关 Paper 对原版漏洞的修复
+    usage: /paperfix [on|off|toggle|status]
+    permission: smpbooster.admin
+  language:
+    description: 切换 SMP Booster 的显示语言
+    usage: /language <zh|en|ja|de|es>
+    permission: smpbooster.admin
+
+permissions:
+  smpbooster.admin:
+    description: 使用 SMP Booster 管理指令
+    default: op
