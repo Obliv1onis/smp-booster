@@ -1,3 +1,5 @@
+import org.gradle.jvm.toolchain.JavaToolchainService
+
 plugins {
     id("java-library")
     id("xyz.jpenilla.run-paper") version "3.0.2"
@@ -8,27 +10,45 @@ repositories {
     maven("https://repo.papermc.io/repository/maven-public/")
 }
 
+val minecraftVersion = providers.gradleProperty("minecraftVersion").getOrElse("26.3")
+val paperApiVersion = if (minecraftVersion == "1.21.11") {
+    "1.21.11-R0.1-SNAPSHOT"
+} else {
+    "$minecraftVersion.build.+"
+}
+val targetJavaVersion = if (minecraftVersion == "1.21.11") 21 else 25
+val toolchains = project.extensions.getByType(JavaToolchainService::class.java)
+
 dependencies {
-    compileOnly("io.papermc.paper:paper-api:26.3.build.+")
+    compileOnly("io.papermc.paper:paper-api:$paperApiVersion")
 }
 
 java {
-    toolchain.languageVersion = JavaLanguageVersion.of(25)
+    toolchain.languageVersion = JavaLanguageVersion.of(targetJavaVersion)
 }
 
 tasks {
     runServer {
-        // Configure the Minecraft version for our task.
-        // This is the only required configuration besides applying the plugin.
-        // Your plugin's jar (or shadowJar if present) will be used automatically.
-        minecraftVersion("26.3")
+        minecraftVersion(minecraftVersion)
+        runDirectory(layout.projectDirectory.dir("run-compat/$minecraftVersion").asFile)
+        javaLauncher.set(toolchains.launcherFor {
+            languageVersion.set(JavaLanguageVersion.of(targetJavaVersion))
+        })
         jvmArgs("-Xms2G", "-Xmx2G")
     }
 
     processResources {
-        val props = mapOf("version" to version)
+        val props = mapOf(
+            "version" to version,
+            "apiVersion" to minecraftVersion,
+        )
+        inputs.properties(props)
         filesMatching("plugin.yml") {
             expand(props)
         }
+    }
+
+    jar {
+        archiveFileName = "SMP-Booster-${project.version}-paper-$minecraftVersion.jar"
     }
 }

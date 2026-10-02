@@ -8,6 +8,7 @@ build/
 
 # Local Paper test server
 run/
+run-compat/
 
 # IDE and OS files
 .idea/

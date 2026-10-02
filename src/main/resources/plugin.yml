@@ -2,7 +2,7 @@ name: smp-booster
 version: '${version}'
 
 main: com.smpBooster.SmpBooster
-api-version: '26.3'
+api-version: '${apiVersion}'
 load: POSTWORLD
 description: 可配置的生存服限制与轻量反作弊
 author: SMP Booster

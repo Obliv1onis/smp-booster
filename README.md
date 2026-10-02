@@ -1,16 +1,34 @@
 # SMP Booster
 
-SMP Booster is a configurable gameplay-restriction and lightweight anti-cheat plugin for Minecraft Java Edition 26.3 running on Paper 26.3.
+SMP Booster is a configurable gameplay-restriction and lightweight anti-cheat plugin for Paper servers.
+
+## Supported Versions
+
+| Minecraft / Paper | Java |
+|---|---:|
+| 1.21.11 | 21 |
+| 26.1.1 | 25 |
+| 26.1.2 | 25 |
+| 26.2 | 25 |
+| 26.3 | 25 |
+
+Version-specific JARs are attached to each GitHub Release. Use the JAR whose filename matches your Paper version.
 
 ## Build and Installation
 
-Requirements: Java 25 and Paper 26.3.
+By default, the project builds the Paper 26.3 variant:
 
 ```bash
 ./gradlew build
 ```
 
-Copy `build/libs/SMP Booster-1.0.jar` into the Paper server's `plugins` directory, then start the server. After the first start, the configuration is available at `plugins/smp-booster/config.yml`. Restart the server after manually editing the file.
+To build another supported version, pass the target version as a Gradle property:
+
+```bash
+./gradlew clean build -PminecraftVersion=1.21.11
+```
+
+Copy the matching JAR from `build/libs` into the Paper server's `plugins` directory, then start the server. After the first start, the configuration is available at `plugins/smp-booster/config.yml`. Restart the server after manually editing the file.
 
 ## Gameplay Restrictions
 
